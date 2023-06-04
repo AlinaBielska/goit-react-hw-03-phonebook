@@ -16,14 +16,11 @@ export class App extends Component {
   };
 
   onSubmitContact = contact => {
-    // const { contacts } = this.state;
-    // const newContact = { ...contact, id: nanoid() }
-    // this.setState({
-    //   contacts: [...contacts, newContact]
-    // });
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, { ...contact }],
-    }));
+    const { contacts } = this.state;
+    const newContact = { ...contact, id: nanoid() }
+    this.setState({
+      contacts: [...contacts, newContact]
+    });
   };
 
   deleteContact = contactID => {
@@ -32,9 +29,8 @@ export class App extends Component {
 
   componentDidMount() {
     const storedContacts = localStorage.getItem("contacts");
-    if (storedContacts === null) {
-      // localStorage.setItem("contacts", JSON.stringify([]));
-      console.log("hello");
+    if (!storedContacts) {
+      localStorage.setItem("contacts", JSON.stringify([]));
     } else {
       this.setState({ contacts: JSON.parse(storedContacts) });
     }
